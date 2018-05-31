@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Form from './Form'
 
 class LogIn extends Component{
-
+    
     render(){
         document.getElementById('title').innerHTML = 'LogIn'
         return(

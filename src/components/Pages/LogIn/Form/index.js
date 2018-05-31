@@ -22,6 +22,8 @@ class Form extends Component{
                     res.json().then( data => {
                         console.log(data)
                         localStorage.setItem('token',data.token)
+                        window.location.href = '/'
+                        //this.props.history.push('/contact')
                     })
                 }else{
                     res.json().then( data => {
