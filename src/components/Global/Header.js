@@ -13,7 +13,7 @@ class Header extends Component {
 
       this.handleLogOutLink = this.handleLogOutLink.bind(this)
 
-      console.log(this.props)
+      //console.log(this.props)
      
     }
 
@@ -35,13 +35,14 @@ class Header extends Component {
 
     render() {
   
-      //console.log(this.props)
+      //console.log('shareState')
+      //console.log(this.props.shareState)
       const {items} = this.props
       return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
           <div className="container">
             <a className="navbar-brand" href="#">{
-              localStorage.getItem('token') && this.props.shareState.resources.map((m,key)=>
+              localStorage.getItem('token') && this.props.shareState && this.props.shareState.user.resources.map((m,key)=>
                 <span key={key} className="badge badge-pill badge-secondary">{m.name} : {m.current} / {m.max}</span>
               )
             }</a>

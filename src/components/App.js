@@ -33,7 +33,7 @@ class App extends Component {
           }
         ],
         isLoggedIn:false,
-        resources: [],
+        user: {resources:[]},
         onlines: 0
       }
     }
@@ -49,15 +49,15 @@ class App extends Component {
             url: '/contact'
           }
         ],
+        user:{resources:[]},
         isLoggedIn:true,
-        resources: [],
         onlines: 0
       }
     }
     
     this.props.socket.on('onlines', data => this.setState({onlines:data}))
     this.props.socket.on('resources', data => {
-      this.setState({resources: data})
+      this.setState({user:{resources: data}})
     })
 
 
@@ -99,17 +99,19 @@ class App extends Component {
     }
   }
 
-  componentWillMount(){
+  componentDidMount(){
     if(localStorage.getItem('token') !== null)
-    fetch('http://localhost:3000/api/resources',{method:'GET' , headers: {
+    fetch('http://localhost:3000/api/user/data/me',{method:'GET' , headers: {
       'Accept': 'application/json, text/plain, */*',
       'Content-Type': 'application/json',
       'authorization' : `Bearer ${localStorage.getItem('token')}`
       }})
       .then(res => res.json())
       .then(data => {
-        //console.log(data.moves)
-        this.setState({resources:data.resources})
+        //console.log('data api')
+        //console.log(data)
+        this.setState({user:data.user})
+        //console.log('state',this.state)
       })
         .catch(err =>{
             console.log(err)
@@ -126,7 +128,7 @@ class App extends Component {
       <div className="App">
         <Header title="Game-Test" items={this.state.items} handleLogged={this.handleLogged} socket={this.props.socket} shareState={this.state}/>
         <div className="content">
-          <Content body={children} socket={this.props.socket} handleLogged={this.handleLogged} />
+          <Content body={children} socket={this.props.socket} handleLogged={this.handleLogged} user={this.state.user}/>
         </div>
         <Footer  copyright="&copy; Game-Test 2018"/>
       </div>

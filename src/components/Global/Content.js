@@ -11,7 +11,10 @@ class Content extends Component{
     }
 
     render(){
+        //console.log('props Content')
+        //console.log(this.props)
         const {body} = this.props
+        //body.props.children.push(this.props.user)
         return(
             <div className="container mt-5">
                 {body}
